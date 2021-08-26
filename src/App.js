@@ -4,8 +4,9 @@ function App() {
   const [triviaData, setTriviaData] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [difficulty, setDifficulty] = useState("medium");
-  const [amount, setAmount] = useState(5);
+  const [amount, setAmount] = useState(10);
   const [gameOver, setGameOver] = useState(false);
+  const [questionIndex, setQuestionindex] = useState(0);
 
   const fetchData = async () => {
     try {
@@ -23,9 +24,20 @@ function App() {
     setQuestions(
       data.map((q) => ({
         ...q,
-        answers: [...q.incorrect_answers, q.correct_answer],
+        answers: [...q.incorrect_answers, q.correct_answer].sort(
+          (a, b) => a > b
+        ),
       }))
     );
+  };
+
+  const checkAnswer = (answer) => {
+    if (answer === questions[questionIndex]?.correct_answer) {
+      setQuestionindex((questionIndex) => questionIndex + 1);
+    } else {
+      setGameOver(true);
+      setQuestionindex(0);
+    }
   };
 
   function startGame() {
@@ -40,15 +52,17 @@ function App() {
 
   return (
     <>
-      {questions && (
+      {!gameOver && (
         <>
-          <p>{questions[0]?.question}</p>
+          <p>Streak: {questionIndex}</p>
+          <p>{questions[questionIndex]?.question}</p>
           <ul>
-            {questions[0]?.answers.map((q) => (
-              <button>{q}</button>
+            {questions[questionIndex]?.answers.map((answer, index) => (
+              <button key={index} onClick={() => checkAnswer(answer)}>
+                {answer}
+              </button>
             ))}
           </ul>
-          <p>{questions[0]?.correct_answer}</p>
         </>
       )}
       <button onClick={startGame}>Start</button>
