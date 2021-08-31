@@ -1,72 +1,20 @@
-import { useState, useEffect } from "react";
+import { GlobalStyle, QuizWrapper } from "./styles/GlobalStyles";
+import Quiz from "./components/Quiz/Quiz";
+import { useState } from "react";
+import { Button } from "./styles/Button";
 
 function App() {
-  const [triviaData, setTriviaData] = useState([]);
-  const [questions, setQuestions] = useState([]);
-  const [difficulty, setDifficulty] = useState("medium");
-  const [amount, setAmount] = useState(10);
-  const [gameOver, setGameOver] = useState(false);
-  const [questionIndex, setQuestionindex] = useState(0);
-
-  const fetchData = async () => {
-    try {
-      let response = await fetch(
-        `https://opentdb.com/api.php?amount=${amount}&$difficulty=${difficulty}&type=multiple`
-      );
-      response = await response.json();
-      setTriviaData(response.results);
-    } catch (err) {
-      alert(err);
-    }
-  };
-
-  const formatQuestions = (data) => {
-    setQuestions(
-      data.map((q) => ({
-        ...q,
-        answers: [...q.incorrect_answers, q.correct_answer].sort(
-          (a, b) => a > b
-        ),
-      }))
-    );
-  };
-
-  const checkAnswer = (answer) => {
-    if (answer === questions[questionIndex]?.correct_answer) {
-      setQuestionindex((questionIndex) => questionIndex + 1);
-    } else {
-      setGameOver(true);
-      setQuestionindex(0);
-    }
-  };
-
-  function startGame() {
-    setGameOver(false);
-    fetchData();
-    formatQuestions(triviaData);
-  }
-
-  useEffect(() => {
-    startGame();
-  }, []);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <>
-      {!gameOver && (
-        <>
-          <p>Streak: {questionIndex}</p>
-          <p>{questions[questionIndex]?.question}</p>
-          <ul>
-            {questions[questionIndex]?.answers.map((answer, index) => (
-              <button key={index} onClick={() => checkAnswer(answer)}>
-                {answer}
-              </button>
-            ))}
-          </ul>
-        </>
+    <QuizWrapper>
+      <GlobalStyle />
+      {isPlaying ? (
+        <Quiz isPlaying={() => setIsPlaying()} />
+      ) : (
+        <Button onClick={() => setIsPlaying(true)}>Start</Button>
       )}
-      <button onClick={startGame}>Start</button>
-    </>
+    </QuizWrapper>
   );
 }
 
