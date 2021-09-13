@@ -48,20 +48,13 @@ export default function Quiz({ isPlaying, difficulty }) {
       setQuestionIndex((questionIndex) => questionIndex + 1);
       setScore((score) => score + 1);
     } else {
-      //setQuestionIndex(0);
-      //setScore(0);
-      //isPlaying(false);
       setLives((lives) => lives - 1);
       setQuestionIndex((questionIndex) => questionIndex + 1);
     }
   };
 
   useEffect(() => {
-    if (lives === 0) {
-/*       setQuestionIndex(0);
-      setScore(0); */
-      isPlaying(false);
-    }
+    if (lives === 0) isPlaying(false);
   }, [lives, isPlaying]);
 
   return (
