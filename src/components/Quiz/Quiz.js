@@ -1,23 +1,23 @@
 import { useState, useEffect } from "react";
 import Question from "../Question/Question";
+import Answer from "../Answers/Answer";
+import { ScoreWrapper } from "./styled";
+import { Spinner } from "../../styles/Spinner";
 
-export default function Quiz({ isPlaying }) {
+export default function Quiz({ isPlaying, difficulty }) {
   const [triviaData, setTriviaData] = useState([]);
-  const [difficulty, setDifficulty] = useState("medium");
-  const [amount, setAmount] = useState(5);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [stage, setStage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-
-  console.log(isPlaying);
+  const [lives, setLives] = useState(3);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
         let response = await fetch(
-          `https://opentdb.com/api.php?amount=${amount}&$difficulty=${difficulty}&type=multiple`
+          `https://opentdb.com/api.php?amount=10&$difficulty=${difficulty}`
         );
         response = await response.json();
         setTriviaData(
@@ -34,7 +34,7 @@ export default function Quiz({ isPlaying }) {
       }
     };
     fetchData();
-  }, [stage, amount, difficulty]);
+  }, [stage, difficulty]);
 
   const checkAnswer = (answer) => {
     const correct = triviaData[questionIndex]?.correct_answer === answer;
@@ -48,30 +48,42 @@ export default function Quiz({ isPlaying }) {
       setQuestionIndex((questionIndex) => questionIndex + 1);
       setScore((score) => score + 1);
     } else {
-      setQuestionIndex(0);
-      setScore(0);
-      isPlaying(false);
+      //setQuestionIndex(0);
+      //setScore(0);
+      //isPlaying(false);
+      setLives((lives) => lives - 1);
+      setQuestionIndex((questionIndex) => questionIndex + 1);
     }
   };
 
-/*   function startGame() {
-    setQuestionIndex(0);
-    setScore(0);
-    setStage(1);
-  } */
+  useEffect(() => {
+    if (lives === 0) {
+/*       setQuestionIndex(0);
+      setScore(0); */
+      isPlaying(false);
+    }
+  }, [lives, isPlaying]);
 
   return (
     <>
-      <p>Streak: {score}</p>
-      {!isLoading && (
-        <Question
-          question={triviaData[questionIndex]?.question}
-          answers={triviaData[questionIndex]?.answers}
-          checkAnswer={checkAnswer}
-        />
+      <ScoreWrapper>
+        <h2>Score: {score}</h2>
+        <h2>Lives: {lives}</h2>
+      </ScoreWrapper>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <Question
+            question={triviaData[questionIndex]?.question}
+            index={questionIndex}
+          />
+          <Answer
+            answers={triviaData[questionIndex]?.answers}
+            checkAnswer={checkAnswer}
+          />
+        </>
       )}
-      {/*       {!triviaData.length && <button onClick={startGame}>Start</button>}
-       */}{" "}
       <p>{triviaData[questionIndex]?.correct_answer}</p>
     </>
   );

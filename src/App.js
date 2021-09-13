@@ -1,21 +1,37 @@
-import { GlobalStyle, QuizWrapper } from "./styles/GlobalStyles";
+import {
+  GlobalStyle,
+  QuizWrapper,
+  theme,
+  StartContainer,
+  Title,
+} from "./styles/GlobalStyles";
 import Quiz from "./components/Quiz/Quiz";
 import { useState } from "react";
 import { Button } from "./styles/Button";
+import { ThemeProvider } from "styled-components";
 
-function App() {
+export default function App() {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [difficulty, setDifficulty] = useState("easy");
 
   return (
-    <QuizWrapper>
+    <>
       <GlobalStyle />
-      {isPlaying ? (
-        <Quiz isPlaying={() => setIsPlaying()} />
-      ) : (
-        <Button onClick={() => setIsPlaying(true)}>Start</Button>
-      )}
-    </QuizWrapper>
+      <ThemeProvider theme={theme}>
+        <QuizWrapper>
+          <Title>TriviaTime</Title>
+          {isPlaying ? (
+            <Quiz isPlaying={() => setIsPlaying()} difficulty={difficulty} />
+          ) : (
+            <StartContainer>
+              <Button onClick={() => setDifficulty("easy")}>Easy</Button>
+              <Button onClick={() => setDifficulty("medium")}>Medium</Button>
+              <Button onClick={() => setDifficulty("hard")}>Hard</Button>
+              <Button onClick={() => setIsPlaying(true)}>Start</Button>
+            </StartContainer>
+          )}
+        </QuizWrapper>
+      </ThemeProvider>
+    </>
   );
 }
-
-export default App;

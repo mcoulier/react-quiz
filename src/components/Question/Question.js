@@ -1,21 +1,10 @@
-import {
-  QuestionText,
-  QuestionWrapper,
-  AnswerButton,
-  AnswerContainer,
-} from "./styled";
+import { QuestionText, QuestionWrapper } from "./styled";
+import { decode } from "html-entities";
 
-export default function Question({ question, answers, checkAnswer }) {
+export default function Question({ question }) {
   return (
     <QuestionWrapper>
-      <QuestionText>{question}</QuestionText>
-      <AnswerContainer>
-        {answers?.map((answer, index) => (
-          <AnswerButton key={index} onClick={() => checkAnswer(answer)}>
-            {answer}
-          </AnswerButton>
-        ))}
-      </AnswerContainer>
+      <QuestionText>{decode(question)}</QuestionText>
     </QuestionWrapper>
   );
 }
