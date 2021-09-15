@@ -2,25 +2,26 @@ import styled, { createGlobalStyle } from "styled-components";
 
 export const theme = {
   colors: {
-    primary: "#0E76F5",
-    secondary: "#D95B29",
-    tertiary: "#5A3D2B",
-    accent: "#75C8AE",
-    alert: "#cc322b",
+    primary: "#025DB3",
+    secondary: "#9321d1",
   },
 };
 
 export const GlobalStyle = createGlobalStyle`
+    * {
+        font-family: 'Open Sans Condensed', sans-serif;
+    }
     body {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Raleway', sans-serif;
       overflow-x: hidden;
-      background-color: ${theme.colors.primary};
+      background: linear-gradient(to right top, #025db3, #2e6bbd, #4778c7, #5b87d0, #6e95da, #819ddf, #92a5e3, #a2aee8, #b3b3e8, #c2b8e7, #cfbee7, #dac5e7) no-repeat;
+      background-size: cover;
+      height: 100vh;
     }
-    button {
-      font-family: 'Raleway', sans-serif;
+    h1 {
+      font-size: 65px;
     }
 `;
 
@@ -39,5 +40,7 @@ export const StartContainer = styled.div`
 `;
 
 export const Title = styled.h1`
-  text-align: center;  
+  text-align: center;
+  text-shadow: 2px 2px 3px ${theme.colors.secondary};
+  color: whitesmoke;
 `;

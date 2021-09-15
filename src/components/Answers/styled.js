@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Button } from "../../styles/Button";
 
 export const AnswerContainer = styled.div`
@@ -7,12 +7,19 @@ export const AnswerContainer = styled.div`
   align-items: center;
 `;
 
+const fade = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
 export const AnswerButton = styled(Button)`
+  animation: ${fade} 0.5s linear;
   &:focus {
     background: ${(props) => props.theme.colors.secondary};
     border: none;
   }
-/*   &:hover {
-    background: #d86c29;
-  } */
 `;

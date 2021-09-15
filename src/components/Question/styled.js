@@ -6,7 +6,6 @@ export const QuestionWrapper = styled.div`
   align-items: center;
 `;
 
-export const QuestionText = styled.h1`
+export const QuestionText = styled.h2`
   color: whitesmoke;
-  text-shadow: 2px 2px 3px black;
 `;

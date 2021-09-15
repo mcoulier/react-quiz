@@ -1,7 +1,7 @@
-import { AnswerContainer, AnswerButton } from "../Answers/styled";
+import { AnswerContainer, AnswerButton } from "./styled";
 import { decode } from "html-entities";
 
-export default function Answer({ answers, checkAnswer }) {
+export default function Answers({ answers, checkAnswer }) {
   return (
     <AnswerContainer>
       {answers?.map((answer, index) => (

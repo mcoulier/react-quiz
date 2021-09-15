@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Question from "../Question/Question";
-import Answer from "../Answers/Answer";
-import { ScoreWrapper } from "./styled";
+import Answers from "../Answers/Answers";
+import { ScoreWrapper, Score } from "./styled";
 import { Spinner } from "../../styles/Spinner";
 
 export default function Quiz({ isPlaying, difficulty }) {
@@ -67,17 +67,14 @@ export default function Quiz({ isPlaying, difficulty }) {
         <Spinner />
       ) : (
         <>
-          <Question
-            question={triviaData[questionIndex]?.question}
-            index={questionIndex}
-          />
-          <Answer
+          <Question question={triviaData[questionIndex]?.question} />
+          <Answers
             answers={triviaData[questionIndex]?.answers}
             checkAnswer={checkAnswer}
           />
         </>
       )}
-      <p>{triviaData[questionIndex]?.correct_answer}</p>
+      {<p>{triviaData[questionIndex]?.correct_answer}</p>}
     </>
   );
 }

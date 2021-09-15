@@ -4,17 +4,19 @@ export const Button = styled.button`
   margin-top: 5px;
   background: ${(props) => props.theme.colors.secondary};
   width: 220px;
-  height: 80px;
+  height: 50px;
   border: none;
-  border-radius: 5px;
+  border-radius: 45px;
   color: #fff;
-  font-size: larger;
+  font-size: 1.2rem;
+  font-weight: bold;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
   &:hover {
     cursor: pointer;
-    background: #d86c29;
+    background: #751aa5;
   }
   &:focus {
-    background: #d86c29;
-    border: 4px solid #d84f29;
+    border: 4px solid #550c7c;
+    background: #751aa5;
   }
 `;
