@@ -1,20 +1,15 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
-export const ScoreWrapper = styled.div`
+export const TopWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
 `;
+export const Score = styled.div``;
 
-export const Score = styled.div`
-  width: 25px;
-  height: 25px;
-  /*   &::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: ${(props) => props.theme.colors.secondary};
-  } */
+export const Hearts = styled.div``;
+
+export const Heart = styled.img`
+  width: 32px;
+  height: 32px;
 `;

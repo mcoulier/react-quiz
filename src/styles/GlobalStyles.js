@@ -9,7 +9,7 @@ export const theme = {
 
 export const GlobalStyle = createGlobalStyle`
     * {
-        font-family: 'Open Sans Condensed', sans-serif;
+      font-family: 'Open Sans Condensed', sans-serif;
     }
     body {
       margin: 0;
@@ -41,6 +41,6 @@ export const StartContainer = styled.div`
 
 export const Title = styled.h1`
   text-align: center;
-  text-shadow: 2px 2px 3px ${theme.colors.secondary};
-  color: whitesmoke;
+  text-shadow: 1px 3px 3px ${theme.colors.secondary};
+  color: #674fd1;
 `;

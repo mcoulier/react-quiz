@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import Question from "../Question/Question";
 import Answers from "../Answers/Answers";
-import { ScoreWrapper, Score } from "./styled";
+import { Score, TopWrapper, Hearts, Heart } from "./styled";
 import { Spinner } from "../../styles/Spinner";
+import heartImg from "../../assets/heart.png";
 
 export default function Quiz({ isPlaying, difficulty }) {
   const [triviaData, setTriviaData] = useState([]);
@@ -10,7 +11,7 @@ export default function Quiz({ isPlaying, difficulty }) {
   const [score, setScore] = useState(0);
   const [stage, setStage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [lives, setLives] = useState(3);
+  const [lives, setLives] = useState([1, 2, 3]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,6 +37,7 @@ export default function Quiz({ isPlaying, difficulty }) {
     fetchData();
   }, [stage, difficulty]);
 
+  //check for wrong & last question
   const checkAnswer = (answer) => {
     const correct = triviaData[questionIndex]?.correct_answer === answer;
     const lastQuestion = questionIndex + 1 >= triviaData.length;
@@ -48,21 +50,26 @@ export default function Quiz({ isPlaying, difficulty }) {
       setQuestionIndex((questionIndex) => questionIndex + 1);
       setScore((score) => score + 1);
     } else {
-      setLives((lives) => lives - 1);
+      setLives((lives) => lives.filter((x) => x % lives.length));
       setQuestionIndex((questionIndex) => questionIndex + 1);
     }
   };
 
   useEffect(() => {
-    if (lives === 0) isPlaying(false);
+    if (lives.length === 0) isPlaying(false);
   }, [lives, isPlaying]);
 
   return (
     <>
-      <ScoreWrapper>
-        <h2>Score: {score}</h2>
-        <h2>Lives: {lives}</h2>
-      </ScoreWrapper>
+      <TopWrapper>
+        <Score>Score: {score}</Score>
+        <Hearts>
+          {lives?.length &&
+            lives.map((live, index) => (
+              <Heart key={index} src={heartImg} alt=""></Heart>
+            ))}
+        </Hearts>
+      </TopWrapper>
       {isLoading ? (
         <Spinner />
       ) : (
@@ -74,7 +81,7 @@ export default function Quiz({ isPlaying, difficulty }) {
           />
         </>
       )}
-      {<p>{triviaData[questionIndex]?.correct_answer}</p>}
+      {/* <p>{triviaData[questionIndex]?.correct_answer}</p> */}
     </>
   );
 }
