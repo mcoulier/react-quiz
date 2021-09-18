@@ -37,21 +37,19 @@ export default function Quiz({ isPlaying, difficulty }) {
     fetchData();
   }, [stage, difficulty]);
 
-  //check for wrong & last question
   const checkAnswer = (answer) => {
     const correct = triviaData[questionIndex]?.correct_answer === answer;
     const lastQuestion = questionIndex + 1 >= triviaData.length;
-    if (correct && lastQuestion) {
-      setQuestionIndex(0);
+    if (correct) {
       setScore((score) => score + 1);
-      setStage((stage) => stage + 1);
-      setTriviaData([]);
-    } else if (correct) {
       setQuestionIndex((questionIndex) => questionIndex + 1);
-      setScore((score) => score + 1);
     } else {
       setLives((lives) => lives.filter((x) => x % lives.length));
       setQuestionIndex((questionIndex) => questionIndex + 1);
+    }
+    if (lastQuestion) {
+      setStage((stage) => stage + 1);
+      setQuestionIndex(0);
     }
   };
 
@@ -66,7 +64,7 @@ export default function Quiz({ isPlaying, difficulty }) {
         <Hearts>
           {lives?.length &&
             lives.map((live, index) => (
-              <Heart key={index} src={heartImg} alt=""></Heart>
+              <Heart key={index} src={heartImg} alt=""/>
             ))}
         </Hearts>
       </TopWrapper>
@@ -81,7 +79,7 @@ export default function Quiz({ isPlaying, difficulty }) {
           />
         </>
       )}
-      {/* <p>{triviaData[questionIndex]?.correct_answer}</p> */}
+      {<p>{triviaData[questionIndex]?.correct_answer}</p>}
     </>
   );
 }
