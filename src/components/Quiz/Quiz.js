@@ -64,7 +64,7 @@ export default function Quiz({ isPlaying, difficulty }) {
         <Hearts>
           {lives?.length &&
             lives.map((live, index) => (
-              <Heart key={index} src={heartImg} alt=""/>
+              <Heart key={index} src={heartImg} alt="" />
             ))}
         </Hearts>
       </TopWrapper>
@@ -79,7 +79,7 @@ export default function Quiz({ isPlaying, difficulty }) {
           />
         </>
       )}
-      {<p>{triviaData[questionIndex]?.correct_answer}</p>}
+      {/* <p>{triviaData[questionIndex]?.correct_answer}</p> */}
     </>
   );
 }
