@@ -81,7 +81,6 @@ export default function Quiz({ isPlaying, difficulty }) {
           <Answers answers={answers} checkAnswer={checkAnswer} />
         </>
       )}
-      {<p>{triviaData[questionIndex]?.correct_answer}</p>}
     </>
   );
 }
