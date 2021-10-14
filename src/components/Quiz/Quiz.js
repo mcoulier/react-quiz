@@ -12,6 +12,7 @@ export default function Quiz({ isPlaying, difficulty }) {
   const [stage, setStage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [lives, setLives] = useState([1, 2, 3]);
+  const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,25 +38,29 @@ export default function Quiz({ isPlaying, difficulty }) {
     fetchData();
   }, [stage, difficulty]);
 
+  useEffect(() => {
+    setAnswers(triviaData[questionIndex]?.answers);
+  }, [triviaData, questionIndex]);
+
+  useEffect(() => {
+    if (lives.length === 0) isPlaying(false);
+  }, [lives, isPlaying]);
+
   const checkAnswer = (answer) => {
     const correct = triviaData[questionIndex]?.correct_answer === answer;
     const lastQuestion = questionIndex + 1 >= triviaData.length;
+    setQuestionIndex((questionIndex) => questionIndex + 1);
+    setAnswers([]);
     if (correct) {
       setScore((score) => score + 1);
-      setQuestionIndex((questionIndex) => questionIndex + 1);
     } else {
       setLives((lives) => lives.filter((x) => x % lives.length));
-      setQuestionIndex((questionIndex) => questionIndex + 1);
     }
     if (lastQuestion) {
       setStage((stage) => stage + 1);
       setQuestionIndex(0);
     }
   };
-
-  useEffect(() => {
-    if (lives.length === 0) isPlaying(false);
-  }, [lives, isPlaying]);
 
   return (
     <>
@@ -73,13 +78,10 @@ export default function Quiz({ isPlaying, difficulty }) {
       ) : (
         <>
           <Question question={triviaData[questionIndex]?.question} />
-          <Answers
-            answers={triviaData[questionIndex]?.answers}
-            checkAnswer={checkAnswer}
-          />
+          <Answers answers={answers} checkAnswer={checkAnswer} />
         </>
       )}
-      {/* <p>{triviaData[questionIndex]?.correct_answer}</p> */}
+      {<p>{triviaData[questionIndex]?.correct_answer}</p>}
     </>
   );
 }

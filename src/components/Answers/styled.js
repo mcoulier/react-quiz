@@ -21,8 +21,4 @@ const fade = keyframes`
 
 export const AnswerButton = styled(Button)`
   animation: ${fade} 0.5s linear;
-  &:focus {
-    background: ${(props) => props.theme.colors.secondary};
-    border: none;
-  }
 `;

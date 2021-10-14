@@ -8,9 +8,8 @@ import {
 } from "./styles/GlobalStyles";
 import Quiz from "./components/Quiz/Quiz";
 import { useState } from "react";
-import { Button } from "./styles/Button";
 import { ThemeProvider } from "styled-components";
-import { StartButton } from "./styles/GlobalStyles";
+import { StartButton, DfcButton } from "./styles/GlobalStyles";
 
 export default function App() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -26,9 +25,9 @@ export default function App() {
             <Quiz isPlaying={() => setIsPlaying()} difficulty={difficulty} />
           ) : (
             <StartContainer>
-              <Button onClick={() => setDifficulty("easy")}>Easy</Button>
-              <Button onClick={() => setDifficulty("medium")}>Medium</Button>
-              <Button onClick={() => setDifficulty("hard")}>Hard</Button>
+              <DfcButton onClick={() => setDifficulty("easy")}>Easy</DfcButton>
+              <DfcButton onClick={() => setDifficulty("medium")}>Medium</DfcButton>
+              <DfcButton onClick={() => setDifficulty("hard")}>Hard</DfcButton>
               <StartButton onClick={() => setIsPlaying(true)}>
                 Start
               </StartButton>

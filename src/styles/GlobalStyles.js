@@ -74,8 +74,12 @@ export const StartButton = styled(Button)`
   &:hover {
     background: #4530a3;
   }
+`;
+
+export const DfcButton = styled(Button)`
   &:focus {
-    border: none;
+    border: 4px solid #550c7c;
+    background: #751aa5;
   }
 `;
 

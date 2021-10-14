@@ -15,8 +15,4 @@ export const Button = styled.button`
     cursor: pointer;
     background: #751aa5;
   }
-  &:focus {
-    border: 4px solid #550c7c;
-    background: #751aa5;
-  }
 `;

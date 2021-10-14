@@ -2,10 +2,9 @@
 
 Simple quiz application using React and data from https://opentdb.com/.
 
-## To Do
-- [ ] Finish UI design
-- [ ] Add animations
-- [ ] True/false visual feedback for user
+## Live preview
+
+https://trivialite.netlify.app/
 
 ### How to install & run
 1. Git clone https://github.com/mcoulier/react-quiz.git
