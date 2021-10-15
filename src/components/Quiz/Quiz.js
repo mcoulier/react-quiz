@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import Question from "../Question/Question";
 import Answers from "../Answers/Answers";
-import { Score, TopWrapper, Hearts, Heart } from "./styled";
+import { Score, TopWrapper, Heart, Feedback, TopItem } from "./styled";
 import { Spinner } from "../../styles/Spinner";
 import heartImg from "../../assets/heart.png";
+import okIcon from "../../assets/okIcon.png";
+import wrongIcon from "../../assets/wrongIcon.png";
 
 export default function Quiz({ isPlaying, difficulty }) {
   const [triviaData, setTriviaData] = useState([]);
@@ -13,6 +15,7 @@ export default function Quiz({ isPlaying, difficulty }) {
   const [isLoading, setIsLoading] = useState(false);
   const [lives, setLives] = useState([1, 2, 3]);
   const [answers, setAnswers] = useState([]);
+  const [feedback, setFeedback] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,8 +56,10 @@ export default function Quiz({ isPlaying, difficulty }) {
     setAnswers([]);
     if (correct) {
       setScore((score) => score + 1);
+      setFeedback(okIcon);
     } else {
       setLives((lives) => lives.filter((x) => x % lives.length));
+      setFeedback(wrongIcon);
     }
     if (lastQuestion) {
       setStage((stage) => stage + 1);
@@ -65,13 +70,16 @@ export default function Quiz({ isPlaying, difficulty }) {
   return (
     <>
       <TopWrapper>
-        <Score>Score: {score}</Score>
-        <Hearts>
+        <TopItem>
+          <Score>Score: {score}</Score>
+        </TopItem>
+        <TopItem>{feedback && <Feedback src={feedback} alt="" />}</TopItem>
+        <TopItem>
           {lives?.length &&
             lives.map((live, index) => (
               <Heart key={index} src={heartImg} alt="" />
             ))}
-        </Hearts>
+        </TopItem>
       </TopWrapper>
       {isLoading ? (
         <Spinner />

@@ -20,7 +20,6 @@ export const GlobalStyle = createGlobalStyle`
       padding: 0;
       box-sizing: border-box;
       overflow-x: hidden;
-      //min-height: 100%;
       background: linear-gradient(
       to right top,
       #025db3,
@@ -49,7 +48,6 @@ export const QuizWrapper = styled.div`
   margin-left: auto;
   margin-right: auto;
   max-width: 1280px;
-  //height: 100%;
   z-index: 5;
   position: relative;
 `;

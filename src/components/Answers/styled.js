@@ -5,12 +5,13 @@ export const AnswerContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   & :last-child {
     margin-bottom: 20px;
   }
 `;
 
-const fade = keyframes`
+const fadeIn = keyframes`
   from {
     opacity: 0;
   }
@@ -20,5 +21,5 @@ const fade = keyframes`
 `;
 
 export const AnswerButton = styled(Button)`
-  animation: ${fade} 0.5s linear;
+  animation: ${fadeIn} 0.5s linear;
 `;
