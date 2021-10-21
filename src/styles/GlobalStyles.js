@@ -40,6 +40,9 @@ export const GlobalStyle = createGlobalStyle`
     h1 {
       font-size: 65px;
     }
+    button {
+      color: whitesmoke;
+    }
 `;
 
 export const QuizWrapper = styled.div`

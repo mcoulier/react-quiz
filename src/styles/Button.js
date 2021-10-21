@@ -6,9 +6,8 @@ export const Button = styled.button`
   width: 220px;
   height: 50px;
   border: none;
-  border-radius: 45px;
-  color: #fff;
-  font-size: 1.2rem;
+  border-radius: 15px;
+  font-size: 1.1rem;
   font-weight: bold;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
   &:hover {
