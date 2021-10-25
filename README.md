@@ -1,5 +1,7 @@
 # Quiz app
 
+![main](src/assets/main.png)
+
 Simple quiz game using React, Styled Components and data from https://opentdb.com/ API.
 
 ## Live preview
